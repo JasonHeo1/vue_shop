@@ -44,40 +44,44 @@ export default {
     return {
       // 这是登录绑定数据的对象
       loginForm: {
-        username: "",
-        password: ""
+        username: 'admin',
+        password: '123456'
       },
       // 这是表单的验证规则对象
       loginFormRules: {
         // 验证用户名是否合法
         username: [
-          { required: true, message: "请输入登录名称", trigger: "blur" },
-          { min: 3, max: 10, message: "长度在 3 到 10 个字符", trigger: "blur" }
+          { required: true, message: '请输入登录名称', trigger: 'blur' },
+          { min: 3, max: 10, message: '长度在 3 到 10 个字符', trigger: 'blur' }
         ],
         // 验证密码是否合法
         password: [
-          { required: true, message: "请输入登录密码", trigger: "blur" },
-          { min: 6, max: 15, message: "长度在 6 到 15 个字符", trigger: "blur" }
+          { required: true, message: '请输入登录密码', trigger: 'blur' },
+          { min: 6, max: 15, message: '长度在 6 到 15 个字符', trigger: 'blur' }
         ]
       }
-    };
+    }
   },
   methods: {
     resetLoginForm() {
-      console.log(this);
-      this.$refs.loginFormRef.resetFields();
+      console.log(this)
+      this.$refs.loginFormRef.resetFields()
     },
     login() {
       this.$refs.loginFormRef.validate(async valid => {
-        if (!valid) return;
-        const { data: res } = await this.$http.post("login", this.loginForm);
+        if (!valid) return
+        const { data: res } = await this.$http.post('login', this.loginForm)
         // const result = await this.$http.post("login", this.loginForm);
-        if (res.meta.status !== 200) return console.log("登录失败");
-        console.log("登录成功");
-      });
+        if (res.meta.status !== 200) return this.$message.error('登录失败')
+        this.$message.success('登录成功')
+        // 1.token 信息保存到客户端 sessionStorage中
+        window.sessionStorage.setItem('token', res.data.token)
+        // 2.通过编程式导航跳转到/home 画面
+        this.$router.push('/home')
+      })
     }
   }
-};
+}
 </script>
 
 <style lang="scss" scoped>
