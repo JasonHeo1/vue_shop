@@ -5,8 +5,8 @@ module.exports = {
   },
   extends: [
     "plugin:vue/essential",
-    "@vue/standard",
-    "eslint:recommended"
+    "@vue/standard"
+    // "eslint:recommended"
     // "eslint-config-prettier"
   ],
   parserOptions: {
@@ -17,7 +17,8 @@ module.exports = {
     "no-debugger": process.env.NODE_ENV === "production" ? "warn" : "off",
     // 'quotes': ['off', 'single'],
     // 'semi': 0,
-    "space-before-function-paren": 0
+    "space-before-function-paren": 0,
+    "no-unused-vars": "on"
     // "semi": [1, "always"]
     // "no-extra-semi": "error",
   }
